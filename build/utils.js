@@ -82,7 +82,6 @@ exports.setPages = configs => {
 
   entryFiles.forEach(filePath => {
     let filename = filePath.substring(filePath.lastIndexOf('/') + 1);
-    console.info(filename)
 
     let conf = {
       // page 的入口
@@ -109,8 +108,6 @@ exports.setPages = configs => {
         chunksSortMode: 'manual' // 按manual的顺序引入
       })
     }
-    console.info(conf)
-
     map[filename] = conf;
   })
 
