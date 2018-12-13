@@ -6,7 +6,6 @@ const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 安装并引用插件
 var merge = require('webpack-merge');
 
-
 // 取得相应的页面路径，因为之前的配置，所以是 src 文件夹下的 pages 文件夹
 const PAGE_PATH = path.resolve(__dirname, '../src/views');
 

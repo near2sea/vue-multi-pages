@@ -4,9 +4,11 @@ import Home from './components/Home.vue'
 
 Vue.use(Router)
 
+const base = `${process.env.BASE_URL}` + 'oldinvertnew'
+
 export default new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: base,
   routes: [{
       path: '/',
       name: 'home',
