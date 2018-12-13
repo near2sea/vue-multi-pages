@@ -1,3 +1,6 @@
+oldinvertnew
+soliuteme
+soliutemetru
 {
   mode: 'development',
   context: '/Users/syt_ios/workspace/h5/cli3-helloworld',
@@ -1110,13 +1113,13 @@
       {
         templateParameters: function () { /* omitted long function */ },
         chunks: [
-          'chunk-vendors',
-          'chunk-common',
+          'manifest',
+          'vendor',
           'oldinvertnew'
         ],
         template: '/Users/syt_ios/workspace/h5/cli3-helloworld/src/views/oldinvertnew/index.html',
-        filename: 'index.html',
-        title: 'oldinvertnew'
+        filename: 'oldinvertnew.html',
+        inject: false
       }
     ),
     /* config.plugin('html-soliuteme') */
@@ -1124,13 +1127,13 @@
       {
         templateParameters: function () { /* omitted long function */ },
         chunks: [
-          'chunk-vendors',
-          'chunk-common',
+          'manifest',
+          'vendor',
           'soliuteme'
         ],
         template: '/Users/syt_ios/workspace/h5/cli3-helloworld/src/views/soliuteme/index.html',
-        filename: 'index.html',
-        title: 'soliuteme'
+        filename: 'soliuteme.html',
+        inject: false
       }
     ),
     /* config.plugin('html-soliutemetru') */
@@ -1138,13 +1141,13 @@
       {
         templateParameters: function () { /* omitted long function */ },
         chunks: [
-          'chunk-vendors',
-          'chunk-common',
+          'manifest',
+          'vendor',
           'soliutemetru'
         ],
         template: '/Users/syt_ios/workspace/h5/cli3-helloworld/src/views/soliutemetru/index.html',
-        filename: 'index.html',
-        title: 'soliutemetru'
+        filename: 'soliutemetru.html',
+        inject: false
       }
     ),
     /* config.plugin('preload-oldinvertnew') */
@@ -1152,7 +1155,7 @@
       {
         rel: 'preload',
         includeHtmlNames: [
-          'index.html'
+          'oldinvertnew.html'
         ],
         include: {
           type: 'initial',
@@ -1171,7 +1174,7 @@
       {
         rel: 'prefetch',
         includeHtmlNames: [
-          'index.html'
+          'oldinvertnew.html'
         ],
         include: {
           type: 'asyncChunks',
@@ -1186,7 +1189,7 @@
       {
         rel: 'preload',
         includeHtmlNames: [
-          'index.html'
+          'soliuteme.html'
         ],
         include: {
           type: 'initial',
@@ -1205,7 +1208,7 @@
       {
         rel: 'prefetch',
         includeHtmlNames: [
-          'index.html'
+          'soliuteme.html'
         ],
         include: {
           type: 'asyncChunks',
@@ -1220,7 +1223,7 @@
       {
         rel: 'preload',
         includeHtmlNames: [
-          'index.html'
+          'soliutemetru.html'
         ],
         include: {
           type: 'initial',
@@ -1239,7 +1242,7 @@
       {
         rel: 'prefetch',
         includeHtmlNames: [
-          'index.html'
+          'soliutemetru.html'
         ],
         include: {
           type: 'asyncChunks',
