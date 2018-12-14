@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <topic></topic>
     <!-- 问题页面 -->
     <div class="topic-wrapper"
          v-if="showTopic">
@@ -62,8 +63,11 @@
 </template>
 
 <script>
+import topic from './components/Topic'
 export default {
-  components: {},
+  components: {
+    topic
+  },
   props: {},
   data () {
     return {
