@@ -1,5 +1,7 @@
 <template>
-  <div class="wrapper"></div>
+  <div class="item left">
+    <slot />
+  </div>
 </template>
 
 <script>
@@ -24,7 +26,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.wrapper {
-  height: 100%;
+.item {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  flex: 1 1 50%;
+  padding: 20px;
+}
+
+.left {
 }
 </style>

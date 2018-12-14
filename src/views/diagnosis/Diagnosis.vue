@@ -1,6 +1,16 @@
 <template>
   <div class="wrapper">
-    <topic></topic>
+    <topic class="item right">
+      <portal-target name="right"></portal-target>
+    </topic>
+    <topic>
+      <p>The content below this paragraph is rendered in the right container by PortalVue</p>
+
+      <portal to="right">
+        <p class="red">This is content from the left side. The cool part is, it works across components, so you can send your content anywhere!</p>
+      </portal>
+
+    </topic>
     <!-- 问题页面 -->
     <div class="topic-wrapper"
          v-if="showTopic">
@@ -84,6 +94,9 @@ export default {
 <style lang="scss">
 body {
   margin: 0;
+}
+.red {
+  color: red;
 }
 .wrapper {
   position: relative;
