@@ -3,7 +3,8 @@
     <h2 class="topic-title">{{topic.question}}</h2>
     <ul>
       <template v-for="item in topic.options">
-        <li :class="topic.type === 'MULTIPLE_CHOICE' ? 'multi-unselect':'single-unselect'"
+        <li :class="itemClass(item)"
+            @click="selectOption(item)"
             :key="item.id">{{item.title}} {{item.content}}</li>
         <li class="chilren-wrapper"
             :key="item.children.id"
@@ -30,7 +31,33 @@ export default {
   },
   watch: {},
   computed: {},
-  methods: {},
+  methods: {
+    itemClass (item) {
+      if (this.topic.type === 'MULTIPLE_CHOICE') {
+        if (item.selected === true) {
+          return 'multi-select'
+        } else {
+          return 'multi-unselect'
+        }
+      } else {
+        if (item.selected === true) {
+          return 'single-select'
+        } else {
+          return 'single-unselect'
+        }
+      }
+    },
+    selectOption (item) {
+      if (this.topic.type === 'MULTIPLE_CHOICE') {
+        item.selected = !item.selected
+      } else {
+        this.topic.options.forEach(item => {
+          item.selected = false
+        });
+        item.selected = true
+      }
+    }
+  },
   created () { },
   mounted () { }
 }
