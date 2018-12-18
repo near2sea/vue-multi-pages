@@ -6,9 +6,9 @@
         <li :class="topic.type === 'MULTIPLE_CHOICE' ? 'multi-unselect':'single-unselect'"
             :key="item.id">{{item.title}} {{item.content}}</li>
         <li class="chilren-wrapper"
-            :key="item.id"
-            v-if="item.children && item.children.length > 0">
-          <choice-second></choice-second>
+            :key="item.children.id"
+            v-if="item.children && item.children.id">
+          <choice-second v-bind:topic="item.children"></choice-second>
         </li>
       </template>
 

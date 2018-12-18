@@ -1,12 +1,11 @@
 <template>
   <div class="choice-wrapper">
-    <h2 class="topic-title">33以下哪种控制饮食的方式是您可以接受的？</h2>
+    <h2 class="topic-title">{{topic.question}}</h2>
     <ul>
-      <li class="multi-select">子解</li>
-      <li class="multi-select">全职太太</li>
-      <li class="multi-select">上班族</li>
-      <li class="multi-select">商务人士</li>
-      <li class="multi-select">自由职业/个体经营</li>
+      <template v-for="item in topic.options">
+        <li :class="topic.type === 'MULTIPLE_CHOICE' ? 'multi-unselect':'single-unselect'"
+            :key="item.id">{{item.title}} {{item.content}}</li>
+      </template>
     </ul>
   </div>
 </template>
@@ -14,7 +13,9 @@
 <script>
 export default {
   components: {},
-  props: {},
+  props: {
+    topic: Object
+  },
   data () {
     return {
     }

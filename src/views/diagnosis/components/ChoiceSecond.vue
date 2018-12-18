@@ -1,15 +1,16 @@
 <template>
   <div class="choice-second-wrapper">
-    <h2 class="topic-title">222以下哪种控制饮食的方式是您可以接受的？</h2>
+    <h2 class="topic-title">{{topic.question}}</h2>
     <ul>
-      <li class="multi-select">全职太太</li>
-      <li class="chilren-wrapper">
-        <choice-third></choice-third>
-      </li>
-      <li class="multi-select">全职太太</li>
-      <li class="multi-select">上班族</li>
-      <li class="multi-select">商务人士</li>
-      <li class="multi-select">自由职业/个体经营</li>
+      <template v-for="item in topic.options">
+        <li :class="topic.type === 'MULTIPLE_CHOICE' ? 'multi-unselect':'single-unselect'"
+            :key="item.id">{{item.title}} {{item.content}}</li>
+        <li class="chilren-wrapper"
+            :key="item.children.id"
+            v-if="item.children && item.children.id">
+          <choice-third v-bind:topic="item.children"></choice-third>
+        </li>
+      </template>
     </ul>
   </div>
 </template>
@@ -20,7 +21,9 @@ export default {
   components: {
     'choice-third': ChoiceThird
   },
-  props: {},
+  props: {
+    topic: Object
+  },
   data () {
     return {
     }

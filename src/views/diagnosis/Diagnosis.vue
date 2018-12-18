@@ -211,7 +211,7 @@ body {
       align-items: center;
       // 跳转到上一题
       .before-submit {
-        margin: 10px 0 0 0;
+        margin: 0;
         width: 100%;
         height: 50px;
         left: 0;
@@ -225,7 +225,7 @@ body {
       }
       // 跳转下一题
       .submit-btn {
-        margin: 0 0 25px 0;
+        margin: 10px 0 25px 0;
         width: 269px;
         height: 50px;
         text-align: center;
