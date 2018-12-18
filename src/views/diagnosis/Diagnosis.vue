@@ -3,14 +3,21 @@
     <!-- 问题页面 -->
     <div class="topic-wrapper"
          v-if="showTopic">
-      <h1 class="page-index">1<span class="page-total">/8</span> </h1>
+      <h1 class="page-index">{{currentIndex + 1}}<span class="page-total">/{{questions.length}}</span> </h1>
 
-      <input-text></input-text>
-      <choice-first></choice-first>
+      <template v-for="item in currentTopics">
+        <input-text v-if="item.type === 'TEXT'"
+                    :key="item.id"></input-text>
+        <choice-first v-bind:topic="item"
+                      v-if="item.type === 'CHOICE' || item.type === 'MULTIPLE_CHOICE'"
+                      :key="item.id"></choice-first>
+      </template>
 
       <div class="bottom-wrapper">
-        <a class="before-submit">上一题</a>
-        <a class="submit-btn unable"><span>下一题</span></a>
+        <a class="before-submit"
+           v-if="currentIndex != 0">上一题</a>
+        <a class="submit-btn unable"
+           v-if="currentIndex < questions.length - 1"><span>下一题</span></a>
       </div>
     </div>
 

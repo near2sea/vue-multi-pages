@@ -1,15 +1,17 @@
 <template>
   <div class="choice-wrapper">
-    <h2 class="topic-title">11以下哪种控制饮食的方式是您可以接受的？</h2>
+    <h2 class="topic-title">{{topic.question}}</h2>
     <ul>
-      <li class="multi-unselect">全职太太</li>
-      <li class="chilren-wrapper">
-        <choice-second></choice-second>
-      </li>
-      <li class="single-select">全职太太</li>
-      <li class="multi-select">上班族</li>
-      <li class="multi-select">商务人士</li>
-      <li class="multi-unselect">自由职业/个体经营</li>
+      <template v-for="item in topic.options">
+        <li :class="item.type === 'multi-unselect' ? 'multi-unselect':'single-unselect'"
+            :key="item.id">{{item.title}}{{item.content}}</li>
+        <li class="chilren-wrapper"
+            :key="item.id"
+            v-if="item.children && item.children.length > 0">
+          <choice-second></choice-second>
+        </li>
+      </template>
+
     </ul>
   </div>
 </template>
@@ -20,7 +22,9 @@ export default {
   components: {
     'choice-second': ChoiceSecond
   },
-  props: {},
+  props: {
+    topic: Object
+  },
   data () {
     return {
     }
@@ -49,7 +53,7 @@ export default {
       position: relative;
       padding-left: 33px;
       margin: 30px 0 30px 30px;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 400;
       line-height: 18px;
       font-family: PingFangSC-Regular;

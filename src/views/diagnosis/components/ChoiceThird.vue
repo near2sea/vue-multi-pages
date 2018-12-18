@@ -47,7 +47,7 @@ export default {
       position: relative;
       padding-left: 33px;
       margin: 30px 0 30px 13px;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 400;
       line-height: 18px;
       font-family: PingFangSC-Regular;
