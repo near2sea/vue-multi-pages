@@ -1,16 +1,5 @@
 <template>
   <div class="wrapper">
-    <topic class="item right">
-      <portal-target name="right"></portal-target>
-    </topic>
-    <topic>
-      <p>The content below this paragraph is rendered in the right container by PortalVue</p>
-
-      <portal to="right">
-        <p class="red">This is content from the left side. The cool part is, it works across components, so you can send your content anywhere!</p>
-      </portal>
-
-    </topic>
     <!-- 问题页面 -->
     <div class="topic-wrapper"
          v-if="showTopic">
@@ -28,17 +17,12 @@
                type="tel" /><span>&nbsp;kg</span>
       </div>
 
-      <h2 class="topic-title">以下哪种控制饮食的方式是您可以接受的？</h2>
-      <ul>
-        <li class="select-item">学生</li>
-        <li class="select-item">全职太太</li>
-        <li class="unselect-item">上班族</li>
-        <li class="unselect-item">商务人士</li>
-        <li class="select-item">自由职业/个体经营</li>
-      </ul>
+      <choice-first></choice-first>
 
-      <a class="before-submit">上一题</a>
-      <a class="submit-btn unable"><span>下一题</span></a>
+      <div class="bottom-wrapper">
+        <a class="before-submit">上一题</a>
+        <a class="submit-btn unable"><span>下一题</span></a>
+      </div>
     </div>
 
     <!-- 结果分析页面 -->
@@ -73,10 +57,10 @@
 </template>
 
 <script>
-import topic from './components/Topic'
+import ChoiceFirst from './components/ChoiceFirst'
 export default {
   components: {
-    topic
+    'choice-first': ChoiceFirst
   },
   props: {},
   data () {
@@ -95,6 +79,8 @@ export default {
 body {
   margin: 0;
 }
+</style>
+<style lang="scss" scoped>
 .red {
   color: red;
 }
@@ -211,7 +197,6 @@ body {
         color: rgba(51, 51, 51, 1);
       }
     }
-
     h2.topic-title {
       padding: 30px 0 0 30px;
       font-size: 16px;
@@ -220,96 +205,62 @@ body {
       color: rgba(51, 51, 51, 1);
       line-height: 16px;
     }
-    ul {
-      list-style: none outside none;
-      padding: 0;
-      li {
-        &.select-item {
-          position: relative;
-          margin: 30px 0 0 30px;
-          padding-left: 33px;
-          font-size: 16px;
-          font-family: PingFangSC-Regular;
-          font-weight: 400;
-          color: #ff508a;
-          line-height: 18px;
-          &::before {
-            content: "";
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            left: 0;
-            background: url("https://m.sythealth.com/html/pic_cdn/h5/community/diagnosis/camp_test_img_circle2.png")
-              no-repeat left center / contain;
-          }
-        }
-        &.unselect-item {
-          position: relative;
-          margin: 30px 0 0 30px;
-          padding-left: 33px;
-          font-size: 16px;
-          font-family: PingFangSC-Regular;
-          font-weight: 400;
-          color: #333333;
-          line-height: 18px;
-          &::before {
-            content: "";
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            left: 0;
-            background: url("https://m.sythealth.com/html/pic_cdn/h5/community/diagnosis/camp_test_img_circle3.png")
-              no-repeat left center / contain;
-          }
-        }
-      }
-    }
-    // 跳转到上一题
-    .before-submit {
+    // 底部按钮
+    .bottom-wrapper {
       position: fixed;
-      width: 100%;
-      height: 50px;
       left: 0;
-      bottom: 80px;
-      text-align: center;
-      font-size: 16px;
-      font-family: PingFangSC-Regular;
-      font-weight: 400;
-      color: rgba(255, 80, 138, 1);
-      line-height: 50px;
-    }
-    // 跳转下一题
-    .submit-btn {
-      position: fixed;
-      bottom: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 269px;
-      height: 50px;
-      text-align: center;
-      line-height: 50px;
-      border-radius: 5px;
-      &.enable {
-        background: #ffd9e5;
-        span {
-          color: #ffaac5;
-        }
-      }
-      &.unable {
-        background: linear-gradient(
-          146deg,
-          rgba(255, 104, 133, 1) 0%,
-          rgba(255, 80, 138, 1) 100%
-        );
-        span {
-          color: #ffffff;
-        }
-      }
-      span {
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      background: #ffffff;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      // 跳转到上一题
+      .before-submit {
+        margin: 10px 0 0 0;
+        width: 100%;
+        height: 50px;
+        left: 0;
+        bottom: 80px;
+        text-align: center;
         font-size: 16px;
         font-family: PingFangSC-Regular;
         font-weight: 400;
-        line-height: 16px;
+        color: rgba(255, 80, 138, 1);
+        line-height: 50px;
+      }
+      // 跳转下一题
+      .submit-btn {
+        margin: 0 0 25px 0;
+        width: 269px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        border-radius: 5px;
+        &.enable {
+          background: #ffd9e5;
+          span {
+            color: #ffaac5;
+          }
+        }
+        &.unable {
+          background: linear-gradient(
+            146deg,
+            rgba(255, 104, 133, 1) 0%,
+            rgba(255, 80, 138, 1) 100%
+          );
+          span {
+            color: #ffffff;
+          }
+        }
+        span {
+          font-size: 16px;
+          font-family: PingFangSC-Regular;
+          font-weight: 400;
+          line-height: 16px;
+        }
       }
     }
   }
