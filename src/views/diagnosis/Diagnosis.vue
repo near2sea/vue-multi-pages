@@ -19,8 +19,7 @@
            @click="preTopic"
            v-if="currentIndex != 0">上一题</a>
         <a class="submit-btn unable"
-           @click="nextTopic"
-           v-if="currentIndex < questions.length - 1"><span>下一题</span></a>
+           @click="nextTopic"><span>{{buttonTitle}}</span></a>
       </div>
     </div>
 
@@ -78,13 +77,28 @@ export default {
       this.currentTopics = this.questions[curVal]
     }
   },
-  computed: {},
+  computed: {
+    buttonTitle () {
+      if (this.currentIndex < this.questions.length - 1) {
+        return '下一题'
+      } else {
+        return '提交结果'
+      }
+    }
+  },
   methods: {
     preTopic () {
       this.currentIndex--
     },
     nextTopic () {
-      this.currentIndex++
+      if (this.currentIndex < this.questions.length - 1) {
+        // 下一页
+        this.currentIndex++
+      } else {
+        // 提交问题
+        debugger
+        console.info(this.questions)
+      }
     }
   },
   async created () {
