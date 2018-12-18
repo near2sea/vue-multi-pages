@@ -102,9 +102,8 @@ export default {
     }
   },
   async created () {
-    const { questions } = await fetchData()
-    console.info(questions)
-    this.questions = questions
+    const { pages } = await fetchData()
+    this.questions = pages
     if (this.questions && this.questions.length > 0) {
       this.currentTopics = this.questions[this.currentIndex]
     }
