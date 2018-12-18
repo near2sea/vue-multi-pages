@@ -3,7 +3,7 @@
     <h2 class="topic-title">{{topic.question}}</h2>
     <div class="input-wrapper">
       <input class="num-input"
-             v-model="topic.answers"
+             v-model="topic.answers[0]"
              type="tel" /><span>&nbsp;{{topic.units.weight}}</span>
     </div>
   </div>

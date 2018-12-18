@@ -18,7 +18,8 @@
         <a class="before-submit"
            @click="preTopic"
            v-if="currentIndex != 0">上一题</a>
-        <a class="submit-btn unable"
+        <a class="submit-btn"
+           :class="nextEnable?'unable':'enable'"
            @click="nextTopic"><span>{{buttonTitle}}</span></a>
       </div>
     </div>
@@ -69,12 +70,19 @@ export default {
       showTopic: true,
       pages: [], // 所有问题
       currentIndex: 0,
+      nextEnable: false,
       currentTopics: [] //当前页的所有问题
     }
   },
   watch: {
     currentIndex: function (curVal) {
       this.currentTopics = this.pages[curVal]
+    },
+    currentTopics: {
+      deep: true,
+      handler: function () {
+        this.nextEnable = this.computeNextEnable()
+      }
     }
   },
   computed: {
@@ -84,10 +92,6 @@ export default {
       } else {
         return '提交结果'
       }
-    },
-    nextEnable () {
-
-      return true
     }
   },
   methods: {
@@ -103,11 +107,53 @@ export default {
         debugger
         console.info(this.pages)
       }
+    },
+    computeNextEnable () {
+      let flag = false
+      let page = this.pages[this.currentIndex]
+      if (!page) return flag
+      // 循环问题
+      for (let index = 0; index < page.length; index++) {
+        let t = page[index];
+        // 单选题
+        if (t && t.type === 'CHOICE' && t.options && t.options.length) {
+          for (let j = 0; j < t.options.length; j++) {
+            // 循环选项
+            let i = t.options[j];
+            if (i.selected === true) {
+              flag = true
+              break
+            } else {
+              flag = false
+            }
+          }
+        }
+        // 填空题
+        if ((t && t.type === 'TEXT')) {
+          if (!t.answers) {
+            flag = false
+          }
+          if (t.answers.length <= 0) {
+            flag = false
+          } else if (t.answers[0].trim() === '') {
+            flag = false
+          } else {
+            flag = true
+          }
+          if (!flag) {
+            break
+          }
+        }
+        // 多选题
+
+      }
+      return flag
     }
   },
   async created () {
     const { pages } = await fetchData()
-    this.pages = pages
+    // this.pages = pages
+    this.$set(this, 'pages', pages)
     if (this.pages && this.pages.length > 0) {
       this.currentTopics = this.pages[this.currentIndex]
     }
