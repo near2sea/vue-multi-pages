@@ -7,8 +7,9 @@
             @click="selectOption(item)"
             :key="item.id">{{item.title}} {{item.content}}</li>
         <li class="chilren-wrapper"
-            :key="item.children.id"
-            v-if="item.children && item.children.id">
+            v-if="item.children && item.children.id"
+            v-show="item.selected === true"
+            :key="item.children.id">
           <choice-second v-bind:topic="item.children"></choice-second>
         </li>
       </template>

@@ -9,7 +9,8 @@
         <li class="chilren-wrapper"
             :key="item.children.id"
             v-if="item.children && item.children.id">
-          <choice-third v-bind:topic="item.children"></choice-third>
+          <choice-third v-bind:topic="item.children"
+                        v-on:clickItem="childClick"></choice-third>
         </li>
       </template>
     </ul>
@@ -50,12 +51,24 @@ export default {
     selectOption (item) {
       if (this.topic.type === 'MULTIPLE_CHOICE') {
         item.selected = !item.selected
+        // 所有的子节点设置为不选择状态
+        if (item && item.selected === false && item.children) {
+          item.children.options.forEach(i => { i.selected = false })
+        }
       } else {
         this.topic.options.forEach(item => {
           item.selected = false
         });
         item.selected = true
       }
+    },
+    // 子节点选择后触发的事件
+    childClick (child) {
+      this.topic.options.map(i => {
+        if (i.children && i.children.id && i.children.id === child.id) {
+          i.selected = true
+        }
+      })
     }
   },
   created () { },

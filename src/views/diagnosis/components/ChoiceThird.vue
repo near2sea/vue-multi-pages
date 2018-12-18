@@ -48,6 +48,8 @@ export default {
         });
         item.selected = true
       }
+      // 控制父节点选择状态
+      this.$emit('clickItem', this.topic)
     }
   },
   created () { },
