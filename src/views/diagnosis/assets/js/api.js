@@ -1,13 +1,8 @@
 import axios from '_lib/axios.js';
 
-export const fetchData = async userId => {
-  let params = {
-    userId
-  }
+export const fetchData = async () => {
   const {
     data
-  } = await axios.get('/ws/fit/v66/oldbringnew/getsharedoldbringnew', {
-    params
-  })
+  } = await axios.get('/sytactivities/api/open/diag/questions')
   return data
 }

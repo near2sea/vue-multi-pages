@@ -5,18 +5,7 @@
          v-if="showTopic">
       <h1 class="page-index">1<span class="page-total">/8</span> </h1>
 
-      <h2 class="topic-title">您希望减重：</h2>
-      <div class="input-wrapper">
-        <input class="num-input"
-               type="tel" /><span>&nbsp;kg</span>
-      </div>
-
-      <h2 class="topic-title">您希望减重：</h2>
-      <div class="input-wrapper">
-        <input class="num-input"
-               type="tel" /><span>&nbsp;kg</span>
-      </div>
-
+      <input-text></input-text>
       <choice-first></choice-first>
 
       <div class="bottom-wrapper">
@@ -58,20 +47,33 @@
 
 <script>
 import ChoiceFirst from './components/ChoiceFirst'
+import InputText from './components/InputText'
+import { fetchData } from './assets/js/api.js'
 export default {
   components: {
-    'choice-first': ChoiceFirst
+    'choice-first': ChoiceFirst,
+    'input-text': InputText
   },
   props: {},
   data () {
     return {
-      showTopic: true
+      showTopic: true,
+      questions: [], // 所有问题
+      currentIndex: 0,
+      currentTopics: [] //当前页的所有问题
     }
   },
   watch: {},
   computed: {},
   methods: {},
-  created () { },
+  async created () {
+    const { questions } = await fetchData()
+    console.info(questions)
+    this.questions = questions
+    if (this.questions && this.questions.length > 0) {
+      this.currentTopics = this.questions[this.currentIndex]
+    }
+  },
   mounted () { }
 }
 </script>
@@ -173,37 +175,6 @@ body {
         color: #ffffff;
         line-height: 28px;
       }
-    }
-    .input-wrapper {
-      margin: 0 0 0 30px;
-      display: flex;
-      align-items: flex-end;
-      height: 40px;
-      .num-input {
-        height: 20px;
-        width: 138px;
-        text-align: center;
-        border: none;
-        border-bottom: #ff508a solid 1px;
-        font-size: 20px;
-        font-family: PingFangSC-Medium;
-        font-weight: 500;
-        color: rgba(255, 80, 138, 1);
-      }
-      span {
-        font-size: 16px;
-        font-family: PingFangSC-Regular;
-        font-weight: 400;
-        color: rgba(51, 51, 51, 1);
-      }
-    }
-    h2.topic-title {
-      padding: 30px 0 0 30px;
-      font-size: 16px;
-      font-family: PingFangSC-Medium;
-      font-weight: 500;
-      color: rgba(51, 51, 51, 1);
-      line-height: 16px;
     }
     // 底部按钮
     .bottom-wrapper {
