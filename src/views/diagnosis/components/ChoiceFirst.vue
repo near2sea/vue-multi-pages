@@ -3,8 +3,8 @@
     <h2 class="topic-title">{{topic.question}}</h2>
     <ul>
       <template v-for="item in topic.options">
-        <li :class="item.type === 'multi-unselect' ? 'multi-unselect':'single-unselect'"
-            :key="item.id">{{item.title}}{{item.content}}</li>
+        <li :class="topic.type === 'MULTIPLE_CHOICE' ? 'multi-unselect':'single-unselect'"
+            :key="item.id">{{item.title}} {{item.content}}</li>
         <li class="chilren-wrapper"
             :key="item.id"
             v-if="item.children && item.children.length > 0">

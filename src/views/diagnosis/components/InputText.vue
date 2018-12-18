@@ -1,6 +1,6 @@
 <template>
   <div class="input-text-wrapper">
-    <h2 class="topic-title">您希望减重：</h2>
+    <h2 class="topic-title">{{topic.question}}</h2>
     <div class="input-wrapper">
       <input class="num-input"
              type="tel" /><span>&nbsp;kg</span>
@@ -11,7 +11,9 @@
 <script>
 export default {
   components: {},
-  props: {},
+  props: {
+    topic: Object
+  },
   data () {
     return {
     }

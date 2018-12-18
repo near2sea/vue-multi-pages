@@ -6,7 +6,8 @@
       <h1 class="page-index">{{currentIndex + 1}}<span class="page-total">/{{questions.length}}</span> </h1>
 
       <template v-for="item in currentTopics">
-        <input-text v-if="item.type === 'TEXT'"
+        <input-text v-bind:topic="item"
+                    v-if="item.type === 'TEXT'"
                     :key="item.id"></input-text>
         <choice-first v-bind:topic="item"
                       v-if="item.type === 'CHOICE' || item.type === 'MULTIPLE_CHOICE'"
@@ -15,8 +16,10 @@
 
       <div class="bottom-wrapper">
         <a class="before-submit"
+           @click="preTopic"
            v-if="currentIndex != 0">上一题</a>
         <a class="submit-btn unable"
+           @click="nextTopic"
            v-if="currentIndex < questions.length - 1"><span>下一题</span></a>
       </div>
     </div>
@@ -70,9 +73,20 @@ export default {
       currentTopics: [] //当前页的所有问题
     }
   },
-  watch: {},
+  watch: {
+    currentIndex: function (curVal) {
+      this.currentTopics = this.questions[curVal]
+    }
+  },
   computed: {},
-  methods: {},
+  methods: {
+    preTopic () {
+      this.currentIndex--
+    },
+    nextTopic () {
+      this.currentIndex++
+    }
+  },
   async created () {
     const { questions } = await fetchData()
     console.info(questions)
