@@ -3,7 +3,7 @@
     <!-- 问题页面 -->
     <div class="topic-wrapper"
          v-if="showTopic">
-      <h1 class="page-index">{{currentIndex + 1}}<span class="page-total">/{{questions.length}}</span> </h1>
+      <h1 class="page-index">{{currentIndex + 1}}<span class="page-total">/{{pages.length}}</span> </h1>
 
       <template v-for="item in currentTopics">
         <input-text v-bind:topic="item"
@@ -67,23 +67,27 @@ export default {
   data () {
     return {
       showTopic: true,
-      questions: [], // 所有问题
+      pages: [], // 所有问题
       currentIndex: 0,
       currentTopics: [] //当前页的所有问题
     }
   },
   watch: {
     currentIndex: function (curVal) {
-      this.currentTopics = this.questions[curVal]
+      this.currentTopics = this.pages[curVal]
     }
   },
   computed: {
     buttonTitle () {
-      if (this.currentIndex < this.questions.length - 1) {
+      if (this.currentIndex < this.pages.length - 1) {
         return '下一题'
       } else {
         return '提交结果'
       }
+    },
+    nextEnable () {
+
+      return true
     }
   },
   methods: {
@@ -91,21 +95,21 @@ export default {
       this.currentIndex--
     },
     nextTopic () {
-      if (this.currentIndex < this.questions.length - 1) {
+      if (this.currentIndex < this.pages.length - 1) {
         // 下一页
         this.currentIndex++
       } else {
         // 提交问题
         debugger
-        console.info(this.questions)
+        console.info(this.pages)
       }
     }
   },
   async created () {
     const { pages } = await fetchData()
-    this.questions = pages
-    if (this.questions && this.questions.length > 0) {
-      this.currentTopics = this.questions[this.currentIndex]
+    this.pages = pages
+    if (this.pages && this.pages.length > 0) {
+      this.currentTopics = this.pages[this.currentIndex]
     }
   },
   mounted () { }
