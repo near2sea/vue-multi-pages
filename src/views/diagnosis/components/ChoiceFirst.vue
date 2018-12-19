@@ -36,7 +36,8 @@ export default {
       deep: true,
       handler: function (val) {
         debugger
-        if (val.type === 'CHOICE') {
+        if (val.type === 'CHOICE' && val.valid !== true) {
+          // 单选题
           if (val.options && val.options.length > 0) {
             for (let index = 0; index < val.options.length; index++) {
               let opt = val.options[index]
@@ -47,8 +48,8 @@ export default {
               }
             }
           }
-          val.valid = false
         } else {
+          // 多选题
           val.valid = false
         }
       }

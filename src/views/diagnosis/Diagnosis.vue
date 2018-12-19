@@ -109,7 +109,7 @@ export default {
       }
     },
     valiateNextStatus () {
-      if (!this.currentTopics) return false
+      if (!this.currentTopics || !this.currentTopics.length) return false
       // 循环问题
       for (let i = 0; i < this.currentTopics.length; i++) {
         let t = this.currentTopics[i];
