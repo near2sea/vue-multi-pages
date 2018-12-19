@@ -19,7 +19,19 @@ export default {
     return {
     }
   },
-  watch: {},
+  watch: {
+    topic: {
+      deep: true,
+      handler: function (val) {
+        if (val && val.answers && val.answers.length && val.answers[0].trim() !== '') {
+          val.valid = true
+        } else {
+          val.valid = false
+        }
+        this.$emit('refreshStatus')
+      }
+    }
+  },
   computed: {},
   methods: {},
   created () { },

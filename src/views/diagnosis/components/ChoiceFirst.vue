@@ -31,7 +31,29 @@ export default {
     return {
     }
   },
-  watch: {},
+  watch: {
+    topic: {
+      deep: true,
+      handler: function (val) {
+        debugger
+        if (val.type === 'CHOICE') {
+          if (val.options && val.options.length > 0) {
+            for (let index = 0; index < val.options.length; index++) {
+              let opt = val.options[index]
+              if (opt.selected === true) {
+                val.valid = true
+                this.$emit('refreshStatus')
+                return
+              }
+            }
+          }
+          val.valid = false
+        } else {
+          val.valid = false
+        }
+      }
+    }
+  },
   computed: {
 
   },

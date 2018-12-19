@@ -7,9 +7,11 @@
 
       <template v-for="item in currentTopics">
         <input-text v-bind:topic="item"
+                    v-on:refreshStatus="refreshStatus"
                     v-if="item.type === 'TEXT'"
                     :key="item.id"></input-text>
         <choice-first v-bind:topic="item"
+                      v-on:refreshStatus="refreshStatus"
                       v-if="item.type === 'CHOICE' || item.type === 'MULTIPLE_CHOICE'"
                       :key="item.id"></choice-first>
       </template>
@@ -19,7 +21,7 @@
            @click="preTopic"
            v-if="currentIndex != 0">上一题</a>
         <a class="submit-btn"
-           :class="nextEnable?'unable':'enable'"
+           :class="!enableNext?'enable':'unable'"
            @click="nextTopic"><span>{{buttonTitle}}</span></a>
       </div>
     </div>
@@ -70,19 +72,14 @@ export default {
       showTopic: true,
       pages: [], // 所有问题
       currentIndex: 0,
-      nextEnable: false,
-      currentTopics: [] //当前页的所有问题
+      currentTopics: [], //当前页的所有问题
+      enableNext: false
     }
   },
   watch: {
     currentIndex: function (curVal) {
       this.currentTopics = this.pages[curVal]
-    },
-    currentTopics: {
-      deep: true,
-      handler: function () {
-        this.nextEnable = this.computeNextEnable()
-      }
+      this.refreshStatus()
     }
   },
   computed: {
@@ -99,6 +96,9 @@ export default {
       this.currentIndex--
     },
     nextTopic () {
+      if (!this.enableNext) {
+        return
+      }
       if (this.currentIndex < this.pages.length - 1) {
         // 下一页
         this.currentIndex++
@@ -108,46 +108,19 @@ export default {
         console.info(this.pages)
       }
     },
-    computeNextEnable () {
-      let flag = false
-      let page = this.pages[this.currentIndex]
-      if (!page) return flag
+    valiateNextStatus () {
+      if (!this.currentTopics) return false
       // 循环问题
-      for (let index = 0; index < page.length; index++) {
-        let t = page[index];
-        // 单选题
-        if (t && t.type === 'CHOICE' && t.options && t.options.length) {
-          for (let j = 0; j < t.options.length; j++) {
-            // 循环选项
-            let i = t.options[j];
-            if (i.selected === true) {
-              flag = true
-              break
-            } else {
-              flag = false
-            }
-          }
+      for (let i = 0; i < this.currentTopics.length; i++) {
+        let t = this.currentTopics[i];
+        if (!t.valid) {
+          return false
         }
-        // 填空题
-        if ((t && t.type === 'TEXT')) {
-          if (!t.answers) {
-            flag = false
-          }
-          if (t.answers.length <= 0) {
-            flag = false
-          } else if (t.answers[0].trim() === '') {
-            flag = false
-          } else {
-            flag = true
-          }
-          if (!flag) {
-            break
-          }
-        }
-        // 多选题
-
       }
-      return flag
+      return true
+    },
+    refreshStatus () {
+      this.enableNext = this.valiateNextStatus()
     }
   },
   async created () {
