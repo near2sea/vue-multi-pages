@@ -32,15 +32,15 @@
 
       <section class="content-wrapper analysis">
         <h1>诊断结果:</h1>
-        <p class="desc">
-          {{result.result}}
+        <p class="desc"
+           v-html="result.result">
         </p>
       </section>
 
       <section class="content-wrapper advice">
         <h1>诊断建议：</h1>
-        <p class="desc">
-          {{result.recommend}}
+        <p class="desc"
+           v-html="result.recommend">
         </p>
       </section>
 
@@ -164,7 +164,7 @@ body {
   }
   // 结果页面
   .result-wrapper {
-    padding: 40px 0 28px 0;
+    padding: 20px 0 28px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
