@@ -82,6 +82,18 @@ export default {
   margin-left: 50px;
   background: #f0f0f0;
   border-radius: 4px;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 18px solid #f0f0f0;
+    left: 20px;
+    top: -18px;
+  }
   h2.topic-title {
     padding: 16px 0 0 13px;
     font-size: 16px;
