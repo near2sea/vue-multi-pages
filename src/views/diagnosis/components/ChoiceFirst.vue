@@ -10,7 +10,8 @@
             v-if="item.children && item.children.id"
             v-show="item.selected === true"
             :key="item.children.id">
-          <choice-second v-bind:topic="item.children"></choice-second>
+          <choice-second v-bind:topic="item.children"
+                         v-on:refreshStatus="refreshStatus"></choice-second>
         </li>
       </template>
 
@@ -32,75 +33,6 @@ export default {
     }
   },
   watch: {
-    topic: {
-      deep: true,
-      handler: function (val) {
-        if (val.type === 'CHOICE' && val.valid !== true) {
-          // 单选题
-          if (val.options && val.options.length > 0) {
-            for (let index = 0; index < val.options.length; index++) {
-              let opt = val.options[index]
-              if (opt.selected === true) {
-                val.valid = true
-                this.$emit('refreshStatus')
-                return
-              }
-            }
-          }
-        } else {
-          // 多选题
-          if (val.options && val.options.length > 0) {
-            // 一层结构验证
-            let hasError = true
-            for (let i = 0; i < val.options.length; i++) {
-              let opt1 = val.options[i]
-              if (opt1.children && opt1.children.options && opt1.children.options.length > 0) {
-                // 三层结构验证
-                for (let j = 0; j < opt1.children.options.length; j++) {
-                  // 第二层勾选
-                  let opt2 = opt1.children.options[j];
-                  if (opt2.selected === true) {
-                    if (opt2.children && opt2.children.options && opt2.children.options.length > 0) {
-                      let f = true
-                      for (let k = 0; k < opt2.children.options.length; k++) {
-                        // 第三层勾选
-                        let opt3 = opt2.children.options[k];
-                        if (opt3.selected === true) {
-                          f = false
-                          hasError = false
-                          break
-                        }
-                      }
-                      // 第三级全部选择都没有勾选的话，验证不通过
-                      if (f) {
-                        val.valid = false
-                        this.$emit('refreshStatus')
-                        return
-                      }
-                    }
-                  }
-                }
-              } else {
-                if (opt1.selected === true) {
-                  hasError = false
-                  break
-                }
-              }
-            }
-            // 第一层没有勾选的话，验证不通过
-            if (hasError) {
-              val.valid = false
-              this.$emit('refreshStatus')
-              return
-            }
-            if (val.valid !== true) {
-              val.valid = true
-              this.$emit('refreshStatus')
-            }
-          }
-        }
-      }
-    }
   },
   computed: {
 
@@ -130,6 +62,32 @@ export default {
         });
         item.selected = true
       }
+      this.refreshStatus()
+    },
+    validationStatus (topic) {
+      if (topic && topic.options && topic.options.length > 0) {
+        for (let index = 0; index < topic.options.length; index++) {
+          let opt = topic.options[index];
+
+          if (opt.selected === true && opt.children && opt.children.options) {
+            // 存在二级问题
+            if (!opt.children.valid || opt.children.valid === false) {
+              return false
+            }
+            return true
+          } else {
+            if (opt.selected === true) {
+              return true
+            }
+          }
+        }
+      }
+      return false
+    },
+    refreshStatus () {
+      let valid = this.validationStatus(this.topic)
+      this.topic.valid = valid
+      this.$emit('refreshStatus')
     }
   },
   created () { },

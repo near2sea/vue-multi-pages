@@ -10,6 +10,7 @@
             :key="item.children.id"
             v-if="item.children && item.children.id">
           <choice-third v-bind:topic="item.children"
+                        v-on:refreshStatus="refreshStatus"
                         v-on:clickItem="childClick"></choice-third>
         </li>
       </template>
@@ -30,7 +31,8 @@ export default {
     return {
     }
   },
-  watch: {},
+  watch: {
+  },
   computed: {},
   methods: {
     itemClass (item) {
@@ -61,6 +63,7 @@ export default {
         });
         item.selected = true
       }
+      this.refreshStatus()
     },
     // 子节点选择后触发的事件
     childClick (child) {
@@ -69,6 +72,31 @@ export default {
           i.selected = true
         }
       })
+    },
+    validationStatus (topic) {
+      if (topic && topic.options && topic.options.length > 0) {
+        for (let index = 0; index < topic.options.length; index++) {
+          let opt = topic.options[index];
+
+          if (opt.selected === true && opt.children && opt.children.options) {
+            // 存在三级问题
+            if (!opt.children.valid || opt.children.valid === false) {
+              return false
+            }
+            return true
+          } else {
+            if (opt.selected === true) {
+              return true
+            }
+          }
+        }
+      }
+      return false
+    },
+    refreshStatus () {
+      let valid = this.validationStatus(this.topic)
+      this.topic.valid = valid
+      this.$emit('refreshStatus')
     }
   },
   created () { },

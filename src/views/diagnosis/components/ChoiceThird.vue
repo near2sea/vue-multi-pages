@@ -21,7 +21,16 @@ export default {
     return {
     }
   },
-  watch: {},
+  watch: {
+    topic: {
+      deep: true,
+      handler: function (val) {
+        let valid = this.validationStatus(val)
+        val.valid = valid
+        this.$emit('refreshStatus')
+      }
+    }
+  },
   computed: {},
   methods: {
     itemClass (item) {
@@ -50,6 +59,17 @@ export default {
       }
       // 控制父节点选择状态
       this.$emit('clickItem', this.topic)
+    },
+    validationStatus (topic) {
+      if (topic && topic.options && topic.options.length > 0) {
+        for (let index = 0; index < topic.options.length; index++) {
+          let opt = topic.options[index];
+          if (opt.selected === true) {
+            return true
+          }
+        }
+      }
+      return false
     }
   },
   created () { },
