@@ -74,8 +74,8 @@ export default {
       })
     },
     validationStatus (topic) {
+      let right = false
       if (topic && topic.options && topic.options.length > 0) {
-        let right = false
         for (let index = 0; index < topic.options.length; index++) {
           let opt = topic.options[index];
           if (opt.selected === true && opt.children && opt.children.options) {
@@ -90,9 +90,8 @@ export default {
             }
           }
         }
-        return right
       }
-      return false
+      return right
     },
     refreshStatus () {
       let valid = this.validationStatus(this.topic)
@@ -106,7 +105,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .choice-second-wrapper {
-  padding: 0 0 1px 30px;
+  padding: 0 0 30px 30px;
   background: #f8f8f8;
   h2.topic-title {
     padding: 16px 0 0 30px;

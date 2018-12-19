@@ -76,26 +76,27 @@ export default {
       this.refreshStatus()
     },
     validationStatus (topic) {
+      let right = false
       if (topic && topic.options && topic.options.length > 0) {
-        let right = false
         for (let index = 0; index < topic.options.length; index++) {
           let opt = topic.options[index];
           if (opt.selected === true && opt.children && opt.children.options) {
-            // 存在二级问题
             if (!opt.children.valid || opt.children.valid === false) {
+              // 多层问题，验证不通过立马返回
               return false
             } else {
               right = true
             }
           } else {
             if (!right && opt.selected === true) {
+              // 非多层问题，只要勾选其中一项，则验证通过
               right = true
             }
           }
         }
-        return right
       }
-      return false
+      // 延后返回验证结果
+      return right
     },
     refreshStatus () {
       let valid = this.validationStatus(this.topic)
