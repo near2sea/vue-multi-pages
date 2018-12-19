@@ -50,7 +50,8 @@
         </p>
       </section>
 
-      <a class="submit-btn"><span>重新测试</span></a>
+      <a @click="reDiagnosis()"
+         class="submit-btn"><span>重新测试</span></a>
 
     </article>
 
@@ -60,7 +61,7 @@
 <script>
 import ChoiceFirst from './components/ChoiceFirst'
 import InputText from './components/InputText'
-import { fetchData } from './assets/js/api.js'
+import { fetchData, evalData } from './assets/js/api.js'
 export default {
   components: {
     'choice-first': ChoiceFirst,
@@ -95,7 +96,7 @@ export default {
     preTopic () {
       this.currentIndex--
     },
-    nextTopic () {
+    async nextTopic () {
       if (!this.enableNext) {
         return
       }
@@ -104,9 +105,15 @@ export default {
         this.currentIndex++
       } else {
         // 提交问题
-        debugger
-        console.info(this.pages)
+        const { data: res } = await evalData(this.pages)
+        if (res) {
+          this.showTopic = false
+        }
       }
+    },
+    // 重新诊断
+    reDiagnosis () {
+      this.showTopic = true
     },
     valiateNextStatus () {
       if (!this.currentTopics || !this.currentTopics.length) return false
