@@ -33,20 +33,14 @@
       <section class="content-wrapper analysis">
         <h1>诊断结果:</h1>
         <p class="desc">
-          您好，根据您目前的身高、体重计算出BMI值 为25，属于超重状态了，建议您除了要控制 饮食减重，还要适当增加运动，不然当心疾病 来找麻烦哦~
-        </p>
-        <p class="desc">
-          您有便秘的情况，这也是造成肥胖的原因之一， 另外，便秘还会导致身体代谢变差，排毒不畅， 胃肠功能紊乱等症，建议日常要规律三餐，早 晨可以空腹喝淡盐水促进排便，严重便秘者， 可以咨询营养师通过饮食调节进行缓解；了解 到您有严重的肝肾功能异常情况，建议先根据 医嘱进行相关治疗，症状缓解后再来咨询哦~
+          {{result.result}}
         </p>
       </section>
 
       <section class="content-wrapper advice">
         <h1>诊断建议：</h1>
         <p class="desc">
-          我们通过对您饮食和运动情况的分析，最终判 断您肥胖的主要原因是总能量摄入过多；人体 所需的营养素当中，只有蛋白质、脂肪、碳水 化合物可以为我们提供能量，而这三大产能营 养素中，每克脂肪所提供的热量是最多的，产 能9kcal，饮食当中，如果我们摄入的肉类、油 脂类的食物过多，就会造成脂肪超量，总能量 过高，因此很容易导致肥胖；建议您适当控制 油脂过高食物的同时，选择一些不饱和脂肪含 量高的鱼类、瘦肉、植物油等，控制三餐的饮 食量，避免总热量超标导致肥胖和一些疾病的 发生。
-        </p>
-        <p class="desc">
-          运动量过少也是导致您肥胖的重要原因哦， 《中国居民膳食指南》建议每人每天要走至少 6000步，适当的运动有助于身体健康，提高 基础代谢，消耗多余的热量，只有吃动平衡， 才能维持现有的体重；如果本身饮食摄入过量， 那就一定要增加运动来消耗，否则减重过程中 肌肉量也会随之减少，基础代谢也会下降，减 重效果会变差哦~
+          {{result.recommend}}
         </p>
       </section>
 
@@ -74,7 +68,8 @@ export default {
       pages: [], // 所有问题
       currentIndex: 0,
       currentTopics: [], //当前页的所有问题
-      enableNext: false
+      enableNext: false,
+      result: {}
     }
   },
   watch: {
@@ -105,14 +100,24 @@ export default {
         this.currentIndex++
       } else {
         // 提交问题
-        const { data: res } = await evalData(this.pages)
-        if (res) {
+        this.result = await evalData(this.pages)
+        if (this.result) {
           this.showTopic = false
         }
       }
     },
+    async initData () {
+      const { pages } = await fetchData()
+      // this.pages = pages
+      this.$set(this, 'pages', pages)
+      if (this.pages && this.pages.length > 0) {
+        this.currentTopics = this.pages[this.currentIndex]
+      }
+    },
     // 重新诊断
-    reDiagnosis () {
+    async reDiagnosis () {
+      this.currentIndex = 0
+      await this.initData()
       this.showTopic = true
     },
     valiateNextStatus () {
@@ -131,12 +136,7 @@ export default {
     }
   },
   async created () {
-    const { pages } = await fetchData()
-    // this.pages = pages
-    this.$set(this, 'pages', pages)
-    if (this.pages && this.pages.length > 0) {
-      this.currentTopics = this.pages[this.currentIndex]
-    }
+    await this.initData()
   },
   mounted () { }
 }

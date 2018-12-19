@@ -8,8 +8,12 @@ export const fetchData = async () => {
 }
 
 export const evalData = async (pages) => {
+  const params = {
+    pages,
+    userId: '123123'
+  }
   const {
     data
-  } = await axios.post('sytactivities/api/open/diag/eval', pages)
+  } = await axios.post('sytactivities/api/open/diag/eval', params)
   return data
 }

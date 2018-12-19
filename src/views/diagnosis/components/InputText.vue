@@ -4,7 +4,7 @@
     <div class="input-wrapper">
       <input class="num-input"
              v-model="topic.answers[0]"
-             type="tel" /><span>&nbsp;{{topic.units.weight}}</span>
+             type="tel" /><span>&nbsp;{{unitKey}}</span>
     </div>
   </div>
 </template>
@@ -32,7 +32,11 @@ export default {
       }
     }
   },
-  computed: {},
+  computed: {
+    unitKey () {
+      return Object.values(this.topic.units)[0]
+    }
+  },
   methods: {},
   created () { },
   mounted () { }
