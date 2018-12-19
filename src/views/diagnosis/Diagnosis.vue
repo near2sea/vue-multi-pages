@@ -144,6 +144,16 @@ export default {
 <style lang="scss">
 body {
   margin: 0;
+  .desc {
+    p {
+      padding-bottom: 15px;
+      border-bottom: 1px dashed #cccccc;
+      &:last-child {
+        padding-bottom: 0;
+        border: none;
+      }
+    }
+  }
 }
 </style>
 <style lang="scss" scoped>
