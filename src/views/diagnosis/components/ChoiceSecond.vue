@@ -77,19 +77,17 @@ export default {
       if (topic && topic.options && topic.options.length > 0) {
         for (let index = 0; index < topic.options.length; index++) {
           let opt = topic.options[index];
-
           if (opt.selected === true && opt.children && opt.children.options) {
-            // 存在三级问题
             if (!opt.children.valid || opt.children.valid === false) {
               return false
             }
-            return true
           } else {
             if (opt.selected === true) {
               return true
             }
           }
         }
+        return true
       }
       return false
     },

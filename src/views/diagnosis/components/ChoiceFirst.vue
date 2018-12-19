@@ -56,6 +56,17 @@ export default {
     selectOption (item) {
       if (this.topic.type === 'MULTIPLE_CHOICE') {
         item.selected = !item.selected
+        // 所有的子节点设置为不选择状态
+        if (item && item.selected === false && item.children) {
+          item.children.options.forEach(child => {
+            child.selected = false
+            if (child.children) {
+              child.children.options.forEach(c => {
+                c.selected = false
+              })
+            }
+          })
+        }
       } else {
         this.topic.options.forEach(item => {
           item.selected = false
@@ -68,19 +79,18 @@ export default {
       if (topic && topic.options && topic.options.length > 0) {
         for (let index = 0; index < topic.options.length; index++) {
           let opt = topic.options[index];
-
           if (opt.selected === true && opt.children && opt.children.options) {
             // 存在二级问题
             if (!opt.children.valid || opt.children.valid === false) {
               return false
             }
-            return true
           } else {
             if (opt.selected === true) {
               return true
             }
           }
         }
+        return true
       }
       return false
     },
