@@ -75,19 +75,22 @@ export default {
     },
     validationStatus (topic) {
       if (topic && topic.options && topic.options.length > 0) {
+        let right = false
         for (let index = 0; index < topic.options.length; index++) {
           let opt = topic.options[index];
           if (opt.selected === true && opt.children && opt.children.options) {
             if (!opt.children.valid || opt.children.valid === false) {
               return false
+            } else {
+              right = true
             }
           } else {
-            if (opt.selected === true) {
-              return true
+            if (!right && opt.selected === true) {
+              right = true
             }
           }
         }
-        return true
+        return right
       }
       return false
     },
