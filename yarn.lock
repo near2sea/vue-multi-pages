@@ -1313,6 +1313,14 @@ aws4@^1.8.0:
   resolved "http://npm.sythealth.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
   integrity sha1-8OAD2cqef1nHpQiUXXsu+aBKVC8=
 
+axios@^0.18.0:
+  version "0.18.0"
+  resolved "http://npm.sythealth.com/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
+  integrity sha1-MtU+SFHv3AoRmTts0AB4nXDAUQI=
+  dependencies:
+    follow-redirects "^1.3.0"
+    is-buffer "^1.1.5"
+
 babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
   version "6.26.0"
   resolved "http://npm.sythealth.com/babel-code-frame/-/babel-code-frame-6.26.0.tgz#63fd43f7dc1e3bb7ce35947db8fe369a3f58c74b"
@@ -3438,7 +3446,7 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
 
-follow-redirects@^1.0.0:
+follow-redirects@^1.0.0, follow-redirects@^1.3.0:
   version "1.5.10"
   resolved "http://npm.sythealth.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
   integrity sha1-e3qfmuov3/NnhqlP9kPtB/T/Xio=
@@ -5845,6 +5853,11 @@ pluralize@^7.0.0:
   resolved "http://npm.sythealth.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
   integrity sha1-KYuJ34uTsCIdv0Ia0rGx6iP8Z3c=
 
+portal-vue@^1.5.0:
+  version "1.5.0"
+  resolved "http://npm.sythealth.com/portal-vue/-/portal-vue-1.5.0.tgz#3519a99a9035e83c000fdcb2a445a7d2fbc66deb"
+  integrity sha1-NRmpmpA16DwAD9yypEWn0vvGbes=
+
 portfinder@^1.0.19, portfinder@^1.0.9:
   version "1.0.20"
   resolved "http://npm.sythealth.com/portfinder/-/portfinder-1.0.20.tgz#bea68632e54b2e13ab7b0c4775e9b41bf270e44a"
@@ -7932,6 +7945,11 @@ vue@^2.5.17:
   version "2.5.21"
   resolved "http://npm.sythealth.com/vue/-/vue-2.5.21.tgz#3d33dcd03bb813912ce894a8303ab553699c4a85"
   integrity sha1-PTPc0Du4E5Es6JSoMDq1U2mcSoU=
+
+vuelidate@^0.7.4:
+  version "0.7.4"
+  resolved "http://npm.sythealth.com/vuelidate/-/vuelidate-0.7.4.tgz#5a0e54be09ac0192f1aa3387d74b92e0945bf8aa"
+  integrity sha1-Wg5UvgmsAZLxqjOH10uS4JRb+Ko=
 
 vuex@^3.0.1:
   version "3.0.1"
