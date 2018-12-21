@@ -4,7 +4,6 @@
 </template>
 
 <script>
-import Alert from '@/components/li-alert/mount.js'
 
 export default {
   components: {
@@ -18,10 +17,9 @@ export default {
   computed: {},
   methods: {},
   created () {
-    let instance = Alert.newInstance()
-    instance.add({
+    this.$Alert.info({
       duration: 2,
-      content: '您马'
+      content: '您马2222dd66'
     })
   },
   mounted () { }

@@ -26,4 +26,8 @@ Alert.newInstance = properties => {
   }
 }
 
+Alert.install = properties => {
+  Vue.prototype.$alert = Alert.newInstance(properties)
+}
+
 export default Alert
