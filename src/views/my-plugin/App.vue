@@ -17,7 +17,8 @@ export default {
   computed: {},
   methods: {},
   created () {
-    this.$Alert.info({
+    debugger
+    this.$alertMessage({
       duration: 2,
       content: '您马2222dd66'
     })

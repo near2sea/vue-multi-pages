@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Alert from '@/components/li-alert/alert.js'
+import AlertMessage from '@/components/alert-message/index.js'
 
-Vue.prototype.$Alert = Alert
+Vue.use(AlertMessage, { ss: 'sdf' })
 
 new Vue({
   render: h => h(App)
