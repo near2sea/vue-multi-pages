@@ -17,10 +17,9 @@ export default {
   computed: {},
   methods: {},
   created () {
-    debugger
     this.$alertMessage({
       duration: 2,
-      content: '您马2222dd66'
+      content: '您马2222dd663g'
     })
   },
   mounted () { }

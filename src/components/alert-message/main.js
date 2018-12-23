@@ -19,24 +19,13 @@ const showMsg = () => {
 }
 
 const AlertMessage = function(opts) {
-  debugger
   console.info(opts)
   showMsg()
 }
 
 AlertMessage.alert = options => {
-  debugger
-  return AlertMessage(options)
-}
-
-AlertMessage.info = (
-  message = {
-    duration: 2,
-    content: '您马2222dd66'
-  }
-) => {
-  debugger
-  instance.add(message)
+  AlertMessage(options)
+  instance.add(options)
 }
 
 export default AlertMessage
