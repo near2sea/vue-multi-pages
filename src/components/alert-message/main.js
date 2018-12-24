@@ -20,14 +20,17 @@ const showMsg = () => {
 
 const AlertMessage = function (opts) {
   opts = opts || {}
-  return new Promise((resolve, reject) => {
-    showMsg()
-    if (opts) {
-      resolve(AlertMessage.info)
-    } else {
-      reject('error')
-    }
-  })
+  console.info(opts)
+  showMsg()
+  return Promise.resolve(AlertMessage.info)
+  // return new Promise((resolve, reject) => {
+  //   showMsg()
+  //   if (opts) {
+  //     resolve(AlertMessage.info)
+  //   } else {
+  //     reject('error')
+  //   }
+  // })
 }
 
 AlertMessage.alert = options => {

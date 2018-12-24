@@ -20,7 +20,7 @@ export default {
     this.$alertMessage().then((infoFunc) => {
       infoFunc({
         duration: 2,
-        content: '他马2222d'
+        content: '他马222'
       })
     }, (error) => {
       console.error(error)
