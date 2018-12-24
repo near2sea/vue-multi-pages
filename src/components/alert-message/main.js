@@ -23,7 +23,7 @@ const AlertMessage = function (opts) {
   return new Promise((resolve, reject) => {
     showMsg()
     if (opts) {
-      resolve(instance)
+      resolve(AlertMessage.info)
     } else {
       reject('error')
     }

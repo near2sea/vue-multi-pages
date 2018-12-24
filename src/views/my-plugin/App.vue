@@ -17,10 +17,10 @@ export default {
   computed: {},
   methods: {},
   created () {
-    this.$alertMessage().then((instance) => {
-      instance.add({
+    this.$alertMessage().then((infoFunc) => {
+      infoFunc({
         duration: 2,
-        content: '他马2222dd66'
+        content: '他马2222d'
       })
     }, (error) => {
       console.error(error)
