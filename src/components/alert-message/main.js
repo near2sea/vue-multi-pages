@@ -18,14 +18,24 @@ const showMsg = () => {
   document.body.appendChild(instance.$el)
 }
 
-const AlertMessage = function(opts) {
-  console.info(opts)
-  showMsg()
+const AlertMessage = function (opts) {
+  opts = opts || {}
+  return new Promise((resolve, reject) => {
+    showMsg()
+    if (opts) {
+      resolve(instance)
+    } else {
+      reject('error')
+    }
+  })
 }
 
 AlertMessage.alert = options => {
-  AlertMessage(options)
-  instance.add(options)
+  return AlertMessage(options)
+}
+
+AlertMessage.info = (mes) => {
+  instance.add(mes);
 }
 
 export default AlertMessage

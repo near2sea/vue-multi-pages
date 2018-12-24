@@ -17,10 +17,15 @@ export default {
   computed: {},
   methods: {},
   created () {
-    this.$alertMessage({
-      duration: 2,
-      content: '您马2222dd663g'
+    this.$alertMessage().then((instance) => {
+      instance.add({
+        duration: 2,
+        content: '他马2222dd66'
+      })
+    }, (error) => {
+      console.error(error)
     })
+
   },
   mounted () { }
 }
