@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper">
     <input v-focus />
+    <div class="color"
+         v-color-swatch>{{message | dos}}</div>
     <div v-demo="{ color: 'red', text: 'hello!' }"></div>
   </div>
 </template>
@@ -26,6 +28,12 @@ export default {
       }
     }
   },
+  filters: {
+    dos (value) {
+      console.info(value)
+      return value + '~~~~'
+    }
+  },
   components: {},
   props: {},
   data () {
@@ -43,5 +51,9 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   height: 100%;
+  .color {
+    width: 100%;
+    height: 100px;
+  }
 }
 </style>
