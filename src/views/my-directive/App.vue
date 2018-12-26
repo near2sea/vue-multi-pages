@@ -2,7 +2,7 @@
   <div class="wrapper">
     <input v-focus />
     <div class="color"
-         v-color-swatch>{{message | dos}}</div>
+         v-color-swatch>{{message | dos('!!!!') | capitalize}}</div>
     <div v-demo="{ color: 'red', text: 'hello!' }"></div>
   </div>
 </template>
@@ -29,16 +29,16 @@ export default {
     }
   },
   filters: {
-    dos (value) {
+    dos (value, arg) {
       console.info(value)
-      return value + '~~~~'
+      return value + '~~~~' + arg
     }
   },
   components: {},
   props: {},
   data () {
     return {
-      message: 'hello!'
+      message: 'phello!'
     }
   },
   watch: {},
