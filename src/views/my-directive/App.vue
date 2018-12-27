@@ -1,18 +1,19 @@
 <template>
   <div class="wrapper">
     <input v-focus />
-    <div class="color"
-         v-color-swatch>{{message | dos('!!!!') | capitalize}}</div>
-    <div v-demo="{ color: 'red', text: 'hello!' }"></div>
-    <div>{{number}}</div>
+    <!-- <div class="color"
+         v-color-swatch>{{message | dos('!!!!') | capitalize}}</div> -->
+    <!-- <div v-demo="{ color: 'red', text: 'hello!' }"></div> -->
+    <!-- <div>{{number}}</div>
     <div class="click-btn"
          @click="handleClick()">
 
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import Node from './node.js'
 export default {
   directives: {
     focus: {
@@ -44,7 +45,8 @@ export default {
   data () {
     return {
       message: 'phello!',
-      number: 0
+      number: 0,
+      node: null
     }
   },
   watch: {},
@@ -58,7 +60,11 @@ export default {
       }
     }
   },
-  created () { },
+  created () {
+    this.node = new Node()
+    this.node.setData({ bb: 'bb' })
+    console.info(this.node)
+  },
   mounted () { }
 }
 </script>
