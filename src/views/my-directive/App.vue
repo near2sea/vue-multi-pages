@@ -4,6 +4,11 @@
     <div class="color"
          v-color-swatch>{{message | dos('!!!!') | capitalize}}</div>
     <div v-demo="{ color: 'red', text: 'hello!' }"></div>
+    <div>{{number}}</div>
+    <div class="click-btn"
+         @click="handleClick()">
+
+    </div>
   </div>
 </template>
 
@@ -38,12 +43,21 @@ export default {
   props: {},
   data () {
     return {
-      message: 'phello!'
+      message: 'phello!',
+      number: 0
     }
   },
   watch: {},
   computed: {},
-  methods: {},
+  methods: {
+    handleClick () {
+      for (let index = 0; index < 1000; index++) {
+        this.$nextTick(() => {
+          this.number++
+        })
+      }
+    }
+  },
   created () { },
   mounted () { }
 }
@@ -54,6 +68,11 @@ export default {
   .color {
     width: 100%;
     height: 100px;
+  }
+  .click-btn {
+    width: 100%;
+    height: 100px;
+    background: green;
   }
 }
 </style>
