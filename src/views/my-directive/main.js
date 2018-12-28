@@ -1,8 +1,18 @@
 import Vue from 'vue'
 import App from './App.vue'
+import AxiosPlugin from './axios.js';
 
+import moment from 'moment'
 var _ = require('lodash')
-Vue.prototype._ = _
+
+Object.defineProperty(Vue.prototype, '_', {
+  value: _
+})
+Object.defineProperty(Vue.prototype, '$moment', {
+  value: moment
+})
+
+Vue.use(AxiosPlugin)
 
 Vue.directive('color-swatch', function (el) {
   el.style.backgroundColor = 'red'

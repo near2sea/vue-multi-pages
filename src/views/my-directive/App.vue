@@ -66,6 +66,8 @@ export default {
     console.log(other);
 
 
+    console.log(this.$moment().format('LL'))
+
     this.node = new Node()
     this.node.setData({ bb: 'bb' })
     console.info(this.node)
