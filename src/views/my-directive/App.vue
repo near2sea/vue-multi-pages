@@ -61,6 +61,11 @@ export default {
     }
   },
   created () {
+    var array = [1];
+    var other = this._.concat(array, 2, [3], [[4]]);
+    console.log(other);
+
+
     this.node = new Node()
     this.node.setData({ bb: 'bb' })
     console.info(this.node)
